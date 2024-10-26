@@ -1,0 +1,17 @@
+{% extends "main.html" %}
+
+{% block page_title %}
+    About
+{% endblock %}
+
+{% block page_content %}
+    <div class="card-container">
+        <p>This is just a test page. Mind your own business.</p>
+        {% for page_name in site_pages %}
+            <p><b>{{ page_name }}</b>: {{ site_pages[page_name] }}</p>
+        {% endfor %}
+        {% for page_name, page_description in site_pages.items() %}
+            <p><b>{{ page_name }}</b>: {{ page_description }}</p>
+        {% endfor %}
+    </div>
+{% endblock %}

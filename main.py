@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from fastapi import FastAPI, Request
 from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
@@ -19,7 +21,7 @@ class Vote(BaseModel):
 @app.get('/')
 def get_choice(request: Request):
     data = {'request': request,}
-    return templates.TemplateResponse("choice.html", data)
+    return templates.TemplateResponse("pages/choice.html", data)
 
 
 @app.post('/vote')
@@ -30,5 +32,29 @@ def count_vote(vote: Vote):
 
 @app.get('/stats')
 def get_stats(request: Request):
+    today = datetime.now().date()
+    data = {
+        'request': request,
+        'current_date': today,
+    }
+    return templates.TemplateResponse("pages/stats.html", data)
+
+
+@app.get('/contact')
+def get_contact(request: Request):
     data = {'request': request,}
-    return templates.TemplateResponse("stats.html", data)
+    return templates.TemplateResponse("pages/contact.html", data)
+
+
+@app.get('/about')
+def get_about(request: Request):
+    data = {
+        'request': request,
+        'site_pages': {
+            'choice': 'Pick an answer in our wanderful questionaire!',
+            'stats': 'Time to check how much votes where.',
+            'contact': 'Some contact info.',
+            'about': 'A few words about this site.',
+        }
+    }
+    return templates.TemplateResponse("pages/about.html", data)

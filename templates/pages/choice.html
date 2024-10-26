@@ -1,42 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Choice</title>
-    <link rel="stylesheet" href="{{ url_for('static', path='/style.css') }}">
-    <link rel="icon" href="{{ url_for('static', path='/favicon.ico') }}" type="image/x-icon">
-    <script src="{{ url_for('static', path='/code.js') }}" defer></script>
-</head>
-<body>
+{% extends "main.html" %}
+
+{% block page_title %}
+    Choice
+{% endblock %}
+
+{% block page_content %}
     <div class="card-container">
         <div class="card-title">
             <p>Choose what kitty you are today!</p>
         </div>
         <div class="card" onclick="castVote('happy')">
-            <img src="{{ url_for('static', path='/happy.png') }}" alt="happy cat">
+            <img src="{{ url_for('static', path='/images/happy.png') }}" alt="happy cat">
             <div class="card-content">
                 <p>I am a happy kitty, purring like there is no tomorrow!</p>
             </div>
         </div>
         <div class="card" onclick="castVote('meow')">
-            <img src="{{ url_for('static', path='/meow.png') }}" alt="meow cat">
+            <img src="{{ url_for('static', path='/images/meow.png') }}" alt="meow cat">
             <div class="card-content">
                 <p>Meowing, energetic, wanna do stuff and run everywhere!</p>
             </div>
         </div>
         <div class="card" onclick="castVote('thinking')">
-            <img src="{{ url_for('static', path='/thinking.png') }}" alt="thinking cat">
+            <img src="{{ url_for('static', path='/images/thinking.png') }}" alt="thinking cat">
             <div class="card-content">
                 <p>I am a feline of thinking. Ever observating and making conclusions.</p>
             </div>
         </div>
         <div class="card" onclick="castVote('crying')">
-            <img src="{{ url_for('static', path='/crying.png') }}" alt="crying cat">
+            <img src="{{ url_for('static', path='/images/crying.png') }}" alt="crying cat">
             <div class="card-content">
                 <p>Life's not fair! Too many homeworks! I have paws, goddammit!</p>
             </div>
         </div>
     </div>
-</body>
-</html>
+{% endblock %}
