@@ -13,6 +13,13 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 templates = Jinja2Templates(directory="templates")
 
+votes = {
+    'happy': 0,
+    'thinking': 0,
+    'crying': 0,
+    'meow': 0
+}
+
 
 class Vote(BaseModel):
     card_id: str
@@ -26,16 +33,34 @@ def get_choice(request: Request):
 
 @app.post('/vote')
 def count_vote(vote: Vote):
-    print(f"Vote received for card ID: {vote.card_id}")
+    if vote.card_id in votes:
+        votes[vote.card_id] += 1
+        print(f"Vote received for card ID: {vote.card_id}. Total votes: {votes[vote.card_id]}")
     return RedirectResponse(url='/stats', status_code=303)
 
 
 @app.get('/stats')
 def get_stats(request: Request):
-    today = datetime.now().date()
+    today = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    
+    total_votes = sum(votes.values())
+    
+    emotions = [
+        {
+            'name': name.capitalize(),
+            'image': name,
+            'votes': count,
+            'percentage': int((count/total_votes) * 100) if total_votes > 0 else 0
+        }
+        for name, count in votes.items()
+    ]
+    emotions.sort(key=lambda x: x['votes'], reverse=True)  
+    
     data = {
         'request': request,
         'current_date': today,
+        'emotions': emotions,
+        'total_votes': total_votes
     }
     return templates.TemplateResponse("pages/stats.html", data)
 
