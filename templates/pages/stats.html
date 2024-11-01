@@ -11,15 +11,15 @@
             <p><b>Last refresh:</b> {{ current_date }}</p>
         </div>
         {% for emotion in emotions %}
-        <div class="card">
-            <img src="static/images/{{ emotion.image }}.png" alt="{{ emotion.name }}">
-            <div class="card-content">
-                <p>{{ emotion.name }} - {{ emotion.votes }} / {{ total_votes }} votes</p>
-                <div class="bar-container">
-                    <div class="bar" style="width: {{ emotion.percentage }}%;"></div>
+            <div class="card">
+                <img src="static/images/{{ emotion.image }}.png" alt="{{ emotion.name }}">
+                <div class="card-content">
+                    <p>{{ emotion.name }} - {{ emotion.votes }} / {{ total_votes }} votes</p>
+                    <div class="bar-container">
+                        <div class="bar" style="width: {{ emotion.percentage }}%;"></div>
+                    </div>
                 </div>
             </div>
-        </div>
         {% endfor %}
     </div>
 {% endblock %}

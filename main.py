@@ -20,6 +20,33 @@ votes = {
     'meow': 0
 }
 
+cats = [
+    {
+        "id": "happy",
+        "image": "happy.png",
+        "alt": "happy cat",
+        "description": "I am a happy kitty, purring like there is no tomorrow!"
+    },
+    {
+        "id": "meow",
+        "image": "meow.png",
+        "alt": "meow cat",
+        "description": "Meowing, energetic, wanna do stuff and run everywhere!"
+    },
+    {
+        "id": "thinking",
+        "image": "thinking.png",
+        "alt": "thinking cat",
+        "description": "I am a feline of thinking. Ever observating and making conclusions."
+    },
+    {
+        "id": "crying",
+        "image": "crying.png",
+        "alt": "crying cat",
+        "description": "Life's not fair! Too many homeworks! I have paws, goddammit!"
+    }
+]
+
 
 class Vote(BaseModel):
     card_id: str
@@ -27,7 +54,10 @@ class Vote(BaseModel):
 
 @app.get('/')
 def get_choice(request: Request):
-    data = {'request': request,}
+    data = {
+            'request': request,
+            'cats': cats
+            }
     return templates.TemplateResponse("pages/choice.html", data)
 
 
@@ -83,3 +113,5 @@ def get_about(request: Request):
         }
     }
     return templates.TemplateResponse("pages/about.html", data)
+
+
